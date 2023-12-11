@@ -72,14 +72,21 @@ app.post('/api/messages', (req, res) => {
         })
     }
 })
-
 app.delete('/api/messages/:messageId', (req, res) => {
     const messageId = req.params.messageId;
-    console.log("I should delete message " + messageId + "...");
 
-    res.status(200).send({
-        "msg": "Successfully deleted post!"
-    })
+    db.run(DELETE_POST_SQL, [messageId], function (err) {
+        if (err) {
+            res.status(500).send({
+                msg: "Something went wrong!",
+                err: err
+            });
+        } else {
+            res.status(200).send({
+                msg: "Successfully deleted!",
+            })
+        }
+    });
 });
 
 applyErrorCatching(app);

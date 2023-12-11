@@ -51,6 +51,7 @@ export function applyLogging(app) {
     });
 }
 
+
 // Apply this at the END as a catch-all!
 export function applyErrorCatching(app) {
     app.use(errorHandler());
